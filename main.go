@@ -39,6 +39,7 @@ func main() {
 	}
 }
 
+
 func pluto(rancherServer rancher.RancherServer, clusters []rancher.Cluster) {
 	for i := 0; i < len(clusters); i++ {
 		c := clusters[i]
@@ -61,7 +62,8 @@ func pluto(rancherServer rancher.RancherServer, clusters []rancher.Cluster) {
 		f.Write(rawConfig)
 		f.Close()
 
-		cmd := exec.Command("pluto", "detect-helm", "--output", "markdown")
+		// cmd := exec.Command("pluto", "detect-helm", "-t", "k8s=v1.25.0", "--output", "markdown")
+		cmd := exec.Command("pluto", "detect-helm", "-t", "k8s=v1.25.0", "-r", "--output", "markdown")
 		cmd.Env = os.Environ()
 		cmd.Env = append(cmd.Env, "KUBECONFIG=./kubeconfig")
 		// open the out file for writing
